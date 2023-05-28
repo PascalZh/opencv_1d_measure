@@ -124,14 +124,6 @@ def measure_1d_rectangle(roi: ROI, img, threshhold=5):
         peaks[peaks.index(peak)] = -b/2/a - roi.length//2
         print(f"detected edge coordinate in profile line: {-b/2/a - roi.length//2}")
 
-    # plt.figure()
-    # plt.subplot(3, 1, 1)
-    # plt.plot(profile)
-    # plt.subplot(3, 1, 2)
-    # plt.plot(profile_smoothed)
-    # plt.subplot(3, 1, 3)
-    # plt.plot(profile_diff)
-
     return peaks
 
 window_size = 100
@@ -163,37 +155,6 @@ for path in img_path:
     gray = cv2.GaussianBlur(gray, (3, 3), 0)
     # 霍夫圆检测
     circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 2, 100, param1=100, param2=25, minRadius=150, maxRadius=300)
-    # # 2. 线检测
-    # # 线检测
-    # edges = cv2.Canny(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 30, 90, apertureSize=3)
-    # cv2.namedWindow('edges', cv2.WINDOW_NORMAL)
-    # cv2.imshow('edges', edges)
-    # lines = cv2.HoughLines(edges, 0.5, np.pi / 180 / 5, 180)
-
-    # line_group = [list(filter(lambda line: abs(anchor[0] * np.cos(line[0][1]) + anchor[1] * np.sin(line[0][1]) - line[0][0]) < line_window, lines)) for anchor in line_anchor]
-    # line1 = np.average(np.array(line_group[0]), axis=0)
-    # line2 = np.average(np.array(line_group[1]), axis=0)
-    # line3 = np.average(np.array(line_group[2]), axis=0)
-    # line4 = np.average(np.array(line_group[3]), axis=0)
-    # print(f"d1 = {abs(line1[0][0] - line4[0][0] * (np.cos(line4[0][1]) * np.cos(line1[0][1]) + np.sin(line4[0][1]) * np.sin(line1[0][1])))}, d2 = {abs(line2[0][0] - line3[0][0] * (np.cos(line3[0][1]) * np.cos(line2[0][1]) + np.sin(line3[0][1]) * np.sin(line2[0][1])))}")
-
-    # lines = [line1, line2, line3, line4]
-    # # 绘制线
-    # for line in lines:
-    #     # 根据霍夫变换的结果绘制线
-    #     rho, theta = line[0]
-    #     # print(f"rho: {rho}, theta: {theta}")
-    #     a = np.cos(theta)
-    #     b = np.sin(theta)
-    #     x = a * rho
-    #     y = b * rho
-    #     # x0, y0 为直线的起点
-    #     x0 = int(x + h * (-b))
-    #     y0 = int(y + h * (a))
-    #     # x1, y1 为直线的终点
-    #     x1 = int(x - h * (-b))
-    #     y1 = int(y - h * (a))
-    #     cv2.line(img, (x0, y0), (x1, y1), (0, 0, 255), 2)
 
     # 绘制圆
     circle1 = [0, 0, 0]
